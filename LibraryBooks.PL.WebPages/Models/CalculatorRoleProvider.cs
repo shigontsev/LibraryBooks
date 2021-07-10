@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryBooks.Dependencies;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,36 +12,21 @@ namespace LibraryBooks.PL.WebPages.Models
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            //var userAndRoleBll = DependencyResolver.Instance.UserAndRoleLogic;
-
-            //var userRoleName = userAndRoleBll.GetUserAndRoleNames()
-            //    .FirstOrDefault(x => x.UserName == username && x.RoleName == roleName);
-
-            //return userRoleName != null;
-            throw new Exception();
+            return DependencyResolver.Instance.UsersAndRolesLogic.GetByLogin(username).RoleName == roleName;
         }
 
         public override string[] GetRolesForUser(string username)
         {
-            //var user = DependencyResolver.Instance.UsersLogic.GetUser(username);
-            //var rolseUser = DependencyResolver.Instance.UserAndRoleLogic.GetRoleByUser(user);
+            var roleUser = DependencyResolver.Instance.UsersAndRolesLogic.GetByLogin(username).RoleName;
 
-            //if (rolseUser != null)
-            //{
-            //    var result = new string[rolseUser.Count];
-            //    int index = 0;
-            //    foreach (var item in rolseUser)
-            //    {
-            //        result[index] = item.Name;
-            //        index++;
-            //    }
-            //    return result;
-            //}
-            //else
-            //{
-            //    return new string[] { };
-            //}
-            throw new Exception();
+            if (roleUser != null)
+            {
+                return new string[] { roleUser };
+            }
+            else
+            {
+                return new string[] { };
+            }
         }
 
         #region Not implements

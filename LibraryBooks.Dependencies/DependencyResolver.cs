@@ -1,4 +1,8 @@
-﻿using System;
+﻿using LibraryBooks.BLL.BLL;
+using LibraryBooks.BLL.Interfaces;
+using LibraryBooks.DAL.Interfaces;
+using LibraryBooks.DAL.SQL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +30,13 @@ namespace LibraryBooks.Dependencies
         #endregion SINGLETONE
 
         #region SqlBD
+        private IAccountDAO AccountDAO => new AccountDAO();
+
+        public IAccountLogic AccountLogic => new AccountLogic(AccountDAO);
+
+        private IUsersAndRolesDAO UsersAndRolesDAO => new UsersAndRolesDAO();
+
+        public IUsersAndRolesLogic UsersAndRolesLogic => new UsersAndRolesLogic(UsersAndRolesDAO);
         //private IUsersDAO UsersDAO => new UsersDAO();
 
         //public IUsersLogic UsersLogic => new UsersLogic(UsersDAO);

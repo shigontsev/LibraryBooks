@@ -41,8 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AccountLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsersAndRolesLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibraryBooks.BLL.Interfaces\LibraryBooks.BLL.Interfaces.csproj">
@@ -52,6 +53,10 @@
     <ProjectReference Include="..\LibraryBooks.Common.Entities\LibraryBooks.Entities.csproj">
       <Project>{65bdecf1-2562-44b4-a320-a9a80c8fea89}</Project>
       <Name>LibraryBooks.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibraryBooks.DAL.Interfaces\LibraryBooks.DAL.Interfaces.csproj">
+      <Project>{8aa494a9-a745-423f-b3d1-ee84216e831f}</Project>
+      <Name>LibraryBooks.DAL.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\LibraryBooks.DAL.SQL\LibraryBooks.DAL.SQL.csproj">
       <Project>{c0cbcd9c-b2c6-4237-89e0-ef1dd27fb267}</Project>

@@ -10,10 +10,6 @@
     {
         pageName = "Unknown Page";
     }
-    if (!User.Identity.IsAuthenticated)
-    {
-        Response.Redirect("~/Pages/SignIn.cshtml");
-    }
 }
 
 <!DOCTYPE html>

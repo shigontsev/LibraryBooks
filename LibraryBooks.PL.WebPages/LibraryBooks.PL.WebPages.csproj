@@ -126,6 +126,13 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />
     <Content Include="Content\bootstrap.rtl.min.css.map" />
+    <Content Include="Partial\_Menu.cshtml" />
+    <Content Include="Pages\SignIn.cshtml" />
+    <Content Include="Pages\SignOut.cshtml" />
+    <Content Include="Partial\_Error.cshtml" />
+    <Content Include="Pages\Layout\_GuestLayout.cshtml" />
+    <Content Include="Pages\SignUp.cshtml" />
+    <Content Include="Partial\_Succes.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -158,7 +165,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Partial\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibraryBooks.BLL.Interfaces\LibraryBooks.BLL.Interfaces.csproj">
+      <Project>{528a2356-696d-4423-af0a-de6056a2262d}</Project>
+      <Name>LibraryBooks.BLL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibraryBooks.Common.Entities\LibraryBooks.Entities.csproj">
+      <Project>{65bdecf1-2562-44b4-a320-a9a80c8fea89}</Project>
+      <Name>LibraryBooks.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibraryBooks.Dependencies\LibraryBooks.Dependencies.csproj">
+      <Project>{f7047d53-4249-4987-8cc9-974ebcef3d08}</Project>
+      <Name>LibraryBooks.Dependencies</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

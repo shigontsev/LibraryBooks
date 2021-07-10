@@ -7,13 +7,17 @@ using System.Threading.Tasks;
 
 namespace LibraryBooks.DAL.Interfaces
 {
-    public interface IAccount
+    public interface IAccountDAO
     {
         void Create(string login, string password, User userInfo);
 
-        void Delete(int idAccount);
+        void Delete(int id);
 
-        bool IsAuthenticated(AuthData authData);
+        bool IsAuthentication(string login, string password);
+
+        IEnumerable<AuthData> GetLogins();
+
+        AuthData GetAuthDataByLogin(string login);
 
     }
 }
