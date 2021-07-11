@@ -14,5 +14,9 @@ namespace LibraryBooks.BLL.Interfaces
         void Delete(int id);
 
         bool IsAuthentication(string login, string password);
+
+        AuthData GetAuthDataByLogin(string login);
+
+        bool Exist(string login);
     }
 }

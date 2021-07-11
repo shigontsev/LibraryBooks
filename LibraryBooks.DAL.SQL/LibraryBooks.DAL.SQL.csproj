@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="AccountDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserInfoDAO.cs" />
     <Compile Include="UsersAndRolesDAO.cs" />
   </ItemGroup>
   <ItemGroup>

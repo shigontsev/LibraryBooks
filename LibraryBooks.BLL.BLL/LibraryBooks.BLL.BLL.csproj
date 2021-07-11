@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AccountLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserInfoLogic.cs" />
     <Compile Include="UsersAndRolesLogic.cs" />
   </ItemGroup>
   <ItemGroup>

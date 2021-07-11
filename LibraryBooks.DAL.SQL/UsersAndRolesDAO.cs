@@ -59,7 +59,7 @@ namespace LibraryBooks.DAL.SQL
                 {
                     return new UserAndRole(
                         userId: (int)reader["UserId"],
-                        roleId: (int)reader["URoleId"],
+                        roleId: (int)reader["RoleId"],
                         userLogin: (string)reader["UserLogin"],
                         roleName: (string)reader["RoleName"]
                         );

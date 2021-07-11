@@ -1,13 +1,28 @@
-﻿@{
+﻿@using LibraryBooks.Dependencies; 
+@{
     //Layout = null;
+    var accountBll = DependencyResolver.Instance.AccountLogic;
+    var userBll = DependencyResolver.Instance.UserInfoLogic;
 }
 
 @if (User.Identity.IsAuthenticated)
 {
+    
     <div class="list-group list-group-horizontal" style="">
         @*<a href="~/Pages/Users.cshtml" class="btn btn-primary list-group-item-primary">Users</a>
         <a href="~/Pages/Awards.cshtml" class="btn btn-primary list-group-item-secondary">Awards</a>
         <a href="~/Pages/UsersAndAwards.cshtml" class="btn btn-primary list-group-item-primary">UsersAndAwards</a>*@
+        @if (User.IsInRole("admin"))
+        {
+            <h3>Admin</h3>
+            <a href="~/Pages/Users.cshtml" class="btn btn-primary list-group-item-primary">Users</a>
+        }
+        else
+        {
+            var userId = accountBll.GetAuthDataByLogin(User.Identity.Name).Id;
+            <h3>@userBll.GetById(userId).FullName</h3>
+            <a href="~/Pages/User/Details?id=@userId" class="btn btn-primary">Читательский</a>
+        }
         <a href="~/Pages/SignOut.cshtml" class="btn btn-primary list-group-item-secondary">SignOut</a>
     </div>
 }

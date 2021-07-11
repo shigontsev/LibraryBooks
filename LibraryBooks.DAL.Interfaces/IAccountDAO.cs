@@ -9,6 +9,7 @@ namespace LibraryBooks.DAL.Interfaces
 {
     public interface IAccountDAO
     {
+
         void Create(string login, string password, User userInfo);
 
         void Delete(int id);
@@ -19,5 +20,6 @@ namespace LibraryBooks.DAL.Interfaces
 
         AuthData GetAuthDataByLogin(string login);
 
+        bool Exist(string login);
     }
 }

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="IAccountDAO.cs" />
     <Compile Include="IUsersAndRolesDAO.cs" />
+    <Compile Include="IUsersInfoDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

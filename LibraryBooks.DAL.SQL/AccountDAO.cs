@@ -17,12 +17,62 @@ namespace LibraryBooks.DAL.SQL
 
         public void Create(string login, string password, User userInfo)
         {
-            throw new NotImplementedException();
+            if (Exist(login))
+            {
+                throw new ArgumentException(nameof(login), string.Format($"Account with {nameof(login)} = \"{login}\" is exist"));
+            }
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var stProc = "AuthData_Create";
+
+                var command = new SqlCommand(stProc, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@Login", login);
+                command.Parameters.AddWithValue("@HashPass", Hasher.HashPassword(password));
+                command.Parameters.AddWithValue("@SurName", userInfo.SurName);
+                command.Parameters.AddWithValue("@FirstName", userInfo.FirstName);
+                command.Parameters.AddWithValue("@SecondName", userInfo.SecondName);
+                command.Parameters.AddWithValue("@DateOfBirth", userInfo.DateOfBirth);
+                command.Parameters.AddWithValue("@Phone", userInfo.Phone);
+
+                _connection.Open();
+
+                var result = command.ExecuteNonQuery();
+
+                if (result == 0)
+                    throw new InvalidOperationException(
+                        string.Format("Cannot create Account"));
+                if (result == 1)
+                    throw new InvalidOperationException(
+                        string.Format("Cannot create UserInfo about Account"));
+                if (result == 2)
+                    throw new InvalidOperationException(
+                        string.Format("Cannot assign Role for Account"));
+            }
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var stProc = "AuthData_DeleteById";
+
+                var command = new SqlCommand(stProc, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@Id", id);
+
+                _connection.Open();
+
+                var result = command.ExecuteNonQuery();
+
+                if (result == 0)
+                    throw new InvalidOperationException(
+                        string.Format("Cannot delete Account"));
+            }
         }
 
         public AuthData GetAuthDataByLogin(string login)
@@ -35,9 +85,7 @@ namespace LibraryBooks.DAL.SQL
                 {
                     CommandType = System.Data.CommandType.StoredProcedure
                 };
-                //string hashPass = Hasher.HashPassword(password);
                 command.Parameters.AddWithValue("@Login", login);
-                //command.Parameters.AddWithValue("@HashPass", hashPass);
 
                 _connection.Open();
 
@@ -53,6 +101,11 @@ namespace LibraryBooks.DAL.SQL
                 }
                 return null;
             }
+        }
+
+        public bool Exist(string login)
+        {
+            return GetAuthDataByLogin(login) != null;
         }
 
         public IEnumerable<AuthData> GetLogins()

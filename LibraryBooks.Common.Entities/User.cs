@@ -48,12 +48,20 @@ namespace LibraryBooks.Entities
             UserId = userId;
         }
 
-        private void ValidName(string name)
+        public void Edit(string surName, string firstName, string secondName, DateTime dateOfBirth, string phone)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentNullException(nameof(name), string.Format($"{nameof(name)} will be not is exist"));
-            }
+            if (string.IsNullOrWhiteSpace(surName))
+                throw new ArgumentNullException(nameof(surName), string.Format($"{nameof(surName)} will be not is empty"));
+            if (string.IsNullOrWhiteSpace(firstName))
+                throw new ArgumentNullException(nameof(firstName), string.Format($"{nameof(firstName)} will be not is empty"));
+            if (string.IsNullOrWhiteSpace(secondName))
+                throw new ArgumentNullException(nameof(secondName), string.Format($"{nameof(secondName)} will be not is empty"));
+
+            SurName = surName;
+            FirstName = firstName;
+            SecondName = secondName;
+            DateOfBirth = dateOfBirth;
+            Phone = phone ?? throw new ArgumentNullException(nameof(phone), string.Format($"{nameof(phone)} will be not is empty"));
         }
     }
 }

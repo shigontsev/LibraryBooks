@@ -37,6 +37,10 @@ namespace LibraryBooks.Dependencies
         private IUsersAndRolesDAO UsersAndRolesDAO => new UsersAndRolesDAO();
 
         public IUsersAndRolesLogic UsersAndRolesLogic => new UsersAndRolesLogic(UsersAndRolesDAO);
+
+        private IUserInfoDAO UserInfoDAO => new UserInfoDAO();
+
+        public IUserInfoLogic UserInfoLogic => new UserInfoLogic(UserInfoDAO);
         //private IUsersDAO UsersDAO => new UsersDAO();
 
         //public IUsersLogic UsersLogic => new UsersLogic(UsersDAO);

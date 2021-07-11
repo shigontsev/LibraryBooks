@@ -28,6 +28,16 @@ namespace LibraryBooks.BLL.BLL
             _accountDAO.Delete(id);
         }
 
+        public bool Exist(string login)
+        {
+            return _accountDAO.Exist(login);
+        }
+
+        public AuthData GetAuthDataByLogin(string login)
+        {
+            return _accountDAO.GetAuthDataByLogin(login);
+        }
+
         public bool IsAuthentication(string login, string password)
         {
             return _accountDAO.IsAuthentication(login, password);

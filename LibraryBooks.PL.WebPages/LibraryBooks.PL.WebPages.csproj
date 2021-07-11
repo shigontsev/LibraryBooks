@@ -133,6 +133,9 @@
     <Content Include="Pages\Layout\_GuestLayout.cshtml" />
     <Content Include="Pages\SignUp.cshtml" />
     <Content Include="Partial\_Succes.cshtml" />
+    <Content Include="Pages\Users.cshtml" />
+    <Content Include="Pages\User\Details.cshtml" />
+    <Content Include="Pages\User\Edit.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
