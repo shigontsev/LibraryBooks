@@ -41,6 +41,14 @@ namespace LibraryBooks.Dependencies
         private IUserInfoDAO UserInfoDAO => new UserInfoDAO();
 
         public IUserInfoLogic UserInfoLogic => new UserInfoLogic(UserInfoDAO);
+
+        private IBookDAO BookDAO => new BookDAO();
+
+        public IBookLogic BookLogic => new BookLogic(BookDAO);
+
+        private IAuthorDAO AuthorDAO => new AuthorDAO();
+
+        public IAuthorLogic AuthorLogic => new AuthorLogic(AuthorDAO);
         //private IUsersDAO UsersDAO => new UsersDAO();
 
         //public IUsersLogic UsersLogic => new UsersLogic(UsersDAO);
