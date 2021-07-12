@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="IAccountLogic.cs" />
     <Compile Include="IAuthorLogic.cs" />
+    <Compile Include="IAuthorsAndBooksLogic.cs" />
     <Compile Include="IBookLogic.cs" />
     <Compile Include="IUserInfoLogic.cs" />
     <Compile Include="IUsersAndRolesLogic.cs" />

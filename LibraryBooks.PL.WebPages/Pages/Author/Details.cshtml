@@ -4,8 +4,10 @@
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
     var authorBll = DependencyResolver.Instance.AuthorLogic;
+    var authorsAndBooksBll = DependencyResolver.Instance.AuthorsAndBooksLogic;
 
     var author = authorBll.GetById(int.Parse(Request["id"]));
+    var books = authorsAndBooksBll.GetBooksByAuthorId(author.Id).ToList();
 
     PageData["Title"] = "Author Details";
 }
@@ -25,50 +27,88 @@
         <h5>
             List Books
         </h5>
+        @if (books.Count > 0)
+        {
 
-        @*@if (User.IsInRole("admin"))
-            {
-                <a class="btn btn-primary" href="~/Pages/User/AssignAward?id=@(user.Id)">Add</a>
-            }
-            @if (awards.Count > 0)
-            {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int index = 0;
+                        foreach (var book in books)
+                        {
+                            index++;
+                            <tr>
+                                <th scope="row">@index</th>
+                                <td>@book.Title</td>
+                                <td>
+                                    @*@if (User.IsInRole("admin"))
+                                    {
+                                        <a class="btn btn-primary unAssign" href="~/Pages/User/UnAssignAward?idUser=@user.Id&idAward=@(award.Id)">Delete</a>
+                                    }*@
 
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Title</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            int index = 0;
-                            foreach (var award in awards)
-                            {
-                                index++;
-                                <tr>
-                                    <th scope="row">@index</th>
-                                    <td>@award.Title</td>
-                                    <td>
-                                        @if (User.IsInRole("admin"))
-                                        {
-                                            <a class="btn btn-primary unAssign" href="~/Pages/User/UnAssignAward?idUser=@user.Id&idAward=@(award.Id)">Delete</a>
-                                        }
-
-                                    </td>
-                                </tr>
-                            }
+                                </td>
+                            </tr>
                         }
-                    </tbody>
-                </table>
-            }
-            else
-            {
-                <p class="card-text">
-                    List is Clear!!!
-                </p>
-            }*@
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="card-text">
+                List is Clear!!!
+            </p>
+        }
+        @*@if (User.IsInRole("admin"))
+        {
+            <a class="btn btn-primary" href="~/Pages/User/AssignAward?id=@(user.Id)">Add</a>
+        }
+        @if (awards.Count > 0)
+        {
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int index = 0;
+                        foreach (var award in awards)
+                        {
+                            index++;
+                            <tr>
+                                <th scope="row">@index</th>
+                                <td>@award.Title</td>
+                                <td>
+                                    @if (User.IsInRole("admin"))
+                                    {
+                                        <a class="btn btn-primary unAssign" href="~/Pages/User/UnAssignAward?idUser=@user.Id&idAward=@(award.Id)">Delete</a>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="card-text">
+                List is Clear!!!
+            </p>
+        }*@
     </div>
 </div>
 
