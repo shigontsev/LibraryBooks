@@ -1,0 +1,74 @@
+﻿@using LibraryBooks.Dependencies
+@using LibraryBooks.Entities;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var authorBll = DependencyResolver.Instance.AuthorLogic;
+
+    var author = authorBll.GetById(int.Parse(Request["id"]));
+
+    PageData["Title"] = "Edit Author";
+
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect("~/");
+    }
+}
+<h3>Изменить Автора : @author.FullName</h3>
+<form method="post" class="row g-3 needs-validation" style="margin: 20px; width:300px" novalidate>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">FullName</span>
+        <input type="text" name="FullName" class="form-control" placeholder="SurName F.S." aria-label="FullName" aria-describedby="basic-addon1" value="@author.FullName" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Edit</button>
+</form>
+
+@if (IsPost)
+{
+    try
+    {
+        string fullName = Request["FullName"];
+        if (authorBll.Exist(fullName))
+        {
+            @RenderPage("~/Partial/_Error.cshtml", new { error = "Данный Автор уже существует!!!" });
+            return;
+        }
+        author.Edit(fullName);
+
+        authorBll.Edit(author);
+
+        @RenderPage("~/Partial/_Succes.cshtml", new { succes = $"Автор \"{fullName}\" изменен!!!" })
+    }
+    catch (Exception ex)
+    {
+        @RenderPage("~/Partial/_Error.cshtml", new { error = "Автор не изменен!!!" })
+    }
+}
+
+<script>
+    $(function () {
+        $('input[type="text"]').change(function () {
+            this.value = $.trim(this.value);
+        });
+    });
+    $('.btn').click(function (event) {
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    });
+</script>

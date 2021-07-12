@@ -1,0 +1,53 @@
+﻿@using LibraryBooks.Dependencies
+@using LibraryBooks.Entities;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var authorBll = DependencyResolver.Instance.AuthorLogic;
+    var authors = authorBll.GetAll();
+
+    PageData["Title"] = "Authors";
+
+}
+<h3>
+    Список Авторов
+</h3>
+
+@if (User.IsInRole("admin"))
+{
+<a class="btn btn-primary" href="~/Pages/Author/Add.cshtml">Add</a>
+}
+
+@{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">FullName</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int index = 0;
+                foreach (var item in authors)
+                {
+                    index++;
+                    <tr>
+                        <th scope="row">@index</th>
+                        <td>@item.FullName</td>
+                        <td>
+                            @if (User.IsInRole("admin"))
+                            {
+                                <a href="~/Pages/Author/Delete?id=@(item.Id)" class="btn btn-primary">Delete</a>
+                            }
+                            <a href="~/Pages/Author/Details?id=@(item.Id)" class="btn btn-primary">Details</a>
+                        </td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}

@@ -137,6 +137,16 @@
     <Content Include="Pages\User\Details.cshtml" />
     <Content Include="Pages\User\Edit.cshtml" />
     <Content Include="Pages\User\Delete.cshtml" />
+    <Content Include="Pages\Books.cshtml" />
+    <Content Include="Pages\Authors.cshtml" />
+    <Content Include="Pages\Author\Details.cshtml" />
+    <Content Include="Pages\Author\Delete.cshtml" />
+    <Content Include="Pages\Author\Add.cshtml" />
+    <Content Include="Pages\Book\Details.cshtml" />
+    <Content Include="Pages\Author\Edit.cshtml" />
+    <Content Include="Pages\Book\Add.cshtml" />
+    <Content Include="Pages\Book\Edit.cshtml" />
+    <Content Include="Pages\Book\Delete.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />

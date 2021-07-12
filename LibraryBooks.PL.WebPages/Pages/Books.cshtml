@@ -1,0 +1,57 @@
+﻿@using LibraryBooks.Dependencies
+@using LibraryBooks.Entities;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var bookBll = DependencyResolver.Instance.BookLogic;
+    var books = bookBll.GetAll();
+
+    PageData["Title"] = "Books";
+
+}
+<h3>
+    Список книг
+</h3>
+
+@if (User.IsInRole("admin"))
+{
+    <a class="btn btn-primary" href="~/Pages/Book/Add.cshtml">Add</a>
+}
+
+@{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">AuthorFullName</th>
+                <th scope="col">Page</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int index = 0;
+                foreach (var item in books)
+                {
+                    index++;
+                    <tr>
+                        <th scope="row">@index</th>
+                        <td>@item.Title</td>
+                        <td>@item.AuthorFullName</td>
+                        <td>@item.Page</td>
+                        <td>
+                            @if (User.IsInRole("admin"))
+                            {
+                                <a href="~/Pages/Book/Delete?id=@(item.Id)" class="btn btn-primary">Delete</a>
+                            }
+                            <a href="~/Pages/User/Details?id=@(item.Id)" class="btn btn-primary">Details</a>
+                        </td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}

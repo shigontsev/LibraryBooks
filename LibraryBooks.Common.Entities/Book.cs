@@ -52,5 +52,10 @@ namespace LibraryBooks.Entities
             Page = newPage;
             Description = newDescription;
         }
+
+        public void EditIdAuthor(int id)
+        {
+            AuthorId = id;
+        }
     }
 }

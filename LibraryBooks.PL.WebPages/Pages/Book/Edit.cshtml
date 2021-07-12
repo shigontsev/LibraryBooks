@@ -1,0 +1,113 @@
+﻿@using LibraryBooks.Dependencies
+@using LibraryBooks.Entities;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var bookBll = DependencyResolver.Instance.BookLogic;
+    var book = bookBll.GetById(int.Parse(Request["id"]));
+    var authorBll = DependencyResolver.Instance.AuthorLogic;
+    var authors = authorBll.GetAll();
+
+    PageData["Title"] = "Edit Author";
+
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect("~/");
+    }
+}
+<h3>Изменить книгу : @book.Title </h3>
+<form method="post" class="row g-3 needs-validation" style="margin: 20px; width:300px" novalidate>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Title</span>
+        <input type="text" name="Title" class="form-control" placeholder="Title" aria-label="Title" aria-describedby="basic-addon1" 
+               value="@book.Title" required>
+        <div class="invalid-feedback">
+            Please choose a Title.
+        </div>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">AuthorFullName</span>
+        <input type="text" list="datalistOptionsAuthors" name="AuthorFullName" class="form-control" placeholder="Surname F.S." aria-label="AuthorFullName" aria-describedby="basic-addon1" 
+               value="@book.AuthorFullName" required>
+        <datalist id="datalistOptionsAuthors">
+            @foreach (var item in authors)
+            {
+                <option value="@(item.FullName)" />
+            }
+        </datalist>
+        <div class="invalid-feedback">
+            Please choose a AuthorFullName.
+        </div>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Page</span>
+        <input type="number" name="Page" class="form-control" placeholder="Page" aria-label="Page" aria-describedby="basic-addon1"
+               min="1" value="@book.Page" required>
+        <div class="invalid-feedback">
+            Please choose a Number Page.
+        </div>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Description</span>
+        <input type="text" name="Description" class="form-control" placeholder="Description" aria-label="Description" aria-describedby="basic-addon1"
+               value="@book.Description" required>
+        <div class="invalid-feedback">
+            Please choose a Description.
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Edit</button>
+</form>
+
+@if (IsPost)
+{
+    try
+    {
+        book.Edit(
+            newTitle: Request["Title"],
+            newAuthorFullName: Request["AuthorFullName"],
+            newPage: int.Parse(Request["Page"]),
+            newDescription: Request["Description"]);
+
+        if (!authorBll.Exist(book.AuthorFullName))
+        {
+            authorBll.Add(book.AuthorFullName);
+        }
+        book.EditIdAuthor(authorBll.GetByFullName(book.AuthorFullName).Id);
+
+        bookBll.Edit(book);
+
+        @RenderPage("~/Partial/_Succes.cshtml", new { succes = $"Книга \"{book.Title}\" изменена!!!" })
+    }
+    catch (Exception ex)
+    {
+        @RenderPage("~/Partial/_Error.cshtml", new { error = "Книга не изменена!!!" })
+    }
+}
+
+<script>
+    $(function () {
+        $('input[type="text"]').change(function () {
+            this.value = $.trim(this.value);
+        });
+    });
+    $('.btn').click(function (event) {
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    });
+</script>

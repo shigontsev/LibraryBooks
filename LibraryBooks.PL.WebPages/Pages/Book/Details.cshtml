@@ -1,0 +1,99 @@
+﻿@using LibraryBooks.Dependencies
+@using LibraryBooks.Entities;
+@using LibraryBooks.PL.WebPages.Models;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var bookBll = DependencyResolver.Instance.BookLogic;
+    var book = bookBll.GetById(int.Parse(Request["id"]));
+
+    PageData["Title"] = "Book Deteils";
+}
+
+
+<h3>
+    Книга : @book.Title
+</h3>
+
+
+<div class="card" style="width: 300px;">
+    <div class="card-body">
+        <p class="card-text">
+            Title : @book.Title
+        </p>
+        <p class="card-text">
+            Author : @book.AuthorFullName
+        </p>
+        <p class="card-text">
+            Pages : @book.Page
+        </p>
+        <p class="card-text">
+            Description : @book.Description
+        </p>
+        @if (!(User.IsInRole("admin")))
+        {
+            <a class="btn btn-primary" href="~/Pages/Book/Edit?id=@(book.Id)">Edit</a>
+        }
+        <h5>
+            List Users
+        </h5>
+
+        @*@if (User.IsInRole("admin"))
+        {
+            <a class="btn btn-primary" href="~/Pages/User/AssignAward?id=@(user.Id)">Add</a>
+        }
+        @if (awards.Count > 0)
+        {
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int index = 0;
+                        foreach (var award in awards)
+                        {
+                            index++;
+                            <tr>
+                                <th scope="row">@index</th>
+                                <td>@award.Title</td>
+                                <td>
+                                    @if (User.IsInRole("admin"))
+                                    {
+                                        <a class="btn btn-primary unAssign" href="~/Pages/User/UnAssignAward?idUser=@user.Id&idAward=@(award.Id)">Delete</a>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="card-text">
+                List is Clear!!!
+            </p>
+        }*@
+    </div>
+</div>
+
+
+@*<script>
+        $('.unAssign').click(function (event) {
+
+            let value = event.target.getAttribute('href');
+
+            let isDelete = confirm("Точно хотите удалить ?"));
+        if (isDelete) {
+            location.href = value;
+        }
+        });
+    </script>*@

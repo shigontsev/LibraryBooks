@@ -1,0 +1,29 @@
+﻿@using LibraryBooks.Dependencies
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var authorBll = DependencyResolver.Instance.AuthorLogic;
+
+    PageData["Title"] = "Delete Author";
+
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect("~/");
+    }
+    var author = authorBll.GetById(int.Parse(Request["id"]));
+}
+<h3>Delete Author : @author.FullName</h3>
+
+@{
+    try
+    {
+        authorBll.Delete(author.Id);
+
+        @RenderPage("~/Partial/_Succes.cshtml", new { succes = $"Автор \"{author.FullName}\" удален!!!" })
+    }
+    catch (Exception ex)
+    {
+        @RenderPage("~/Partial/_Error.cshtml", new { error = $"Автор \"{author.FullName}\" не удален!!!" })
+    }
+}
