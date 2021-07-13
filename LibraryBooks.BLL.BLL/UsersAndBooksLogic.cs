@@ -23,6 +23,16 @@ namespace LibraryBooks.BLL.BLL
             return _usersAndBooksDAO.Exist(userId, bookId);
         }
 
+        public bool ExistByBookId(int bookId)
+        {
+            return _usersAndBooksDAO.ExistByBookId(bookId);
+        }
+
+        public bool ExistByUserId(int userId)
+        {
+            return _usersAndBooksDAO.ExistByUserId(userId);
+        }
+
         public IEnumerable<Book> GetBooksByUserId(int userId)
         {
             return _usersAndBooksDAO.GetBooksByUserId(userId);

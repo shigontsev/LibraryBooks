@@ -19,6 +19,10 @@ namespace LibraryBooks.BLL.Interfaces
 
         bool Exist(int userId, int bookId);
 
+        bool ExistByUserId(int userId);
+
+        bool ExistByBookId(int bookId);
+
         void GiveBookToUser(int bookId, int userId);
 
         void ReturnBookByUser(int bookId, int userId);

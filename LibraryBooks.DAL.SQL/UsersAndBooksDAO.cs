@@ -25,11 +25,53 @@ namespace LibraryBooks.DAL.SQL
                     CommandType = System.Data.CommandType.StoredProcedure
                 };
                 command.Parameters.AddWithValue("@UserId", userId);
-                command.Parameters.AddWithValue("@BookId", userId);
+                command.Parameters.AddWithValue("@BookId", bookId);
                 _connection.Open();
 
-                var result = command.ExecuteNonQuery();
-                return result != 0;
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                    return true;
+                return false;
+            }
+        }
+
+        public bool ExistByBookId(int bookId)
+        {
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var stProc = "UsersAndBooks_ExistByBookId";
+
+                var command = new SqlCommand(stProc, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@BookId", bookId);
+                _connection.Open();
+
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                    return true;
+                return false;
+            }
+        }
+
+        public bool ExistByUserId(int userId)
+        {
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var stProc = "UsersAndBooks_ExistByUserId";
+
+                var command = new SqlCommand(stProc, _connection)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@UserId", userId);
+                _connection.Open();
+
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                    return true;
+                return false;
             }
         }
 

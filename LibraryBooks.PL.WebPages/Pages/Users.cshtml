@@ -4,6 +4,7 @@
 @{
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
+    var usersAndBooks = DependencyResolver.Instance.UsersAndBooksLogic;
     var userInfoBll = DependencyResolver.Instance.UserInfoLogic;
     var users = userInfoBll.GetAll();
 
@@ -43,8 +44,11 @@
                             <td>@user.DateOfBirth.ToString("D")</td>
                             <td>@user.Phone</td>
                             <td>
-                                <a href="~/Pages/User/Delete?id=@(user.UserId)" class="btn btn-primary">Delete</a>
                                 <a href="~/Pages/User/Details?id=@(user.UserId)" class="btn btn-primary">Details</a>
+                                @if (User.IsInRole("admin") && !usersAndBooks.ExistByUserId(user.UserId))
+                                {
+                                    <a href="~/Pages/User/Delete?id=@(user.UserId)" class="btn btn-danger deleteUser">Delete</a>
+                                }
                             </td>
 
                         </tr>
@@ -53,3 +57,14 @@
         </tbody>
     </table>
 }
+
+
+<script>
+    $('.deleteUser').click(function (event) {
+        let value = event.target.getAttribute('href');
+        let isDelete = confirm("Точно хотите удалить ?");
+        if (isDelete) {
+            location.href = value;
+        }
+    });
+</script>

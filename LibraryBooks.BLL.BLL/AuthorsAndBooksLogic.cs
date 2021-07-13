@@ -18,6 +18,11 @@ namespace LibraryBooks.BLL.BLL
             _authorsAndBooksDAO = authorsAndBooksDAO;
         }
 
+        public bool ExistBooks(int authorId)
+        {
+            return _authorsAndBooksDAO.ExistBooks(authorId);
+        }
+
         public IEnumerable<Book> GetBooksByAuthorId(int authorId)
         {
             return _authorsAndBooksDAO.GetBooksByAuthorId(authorId);
