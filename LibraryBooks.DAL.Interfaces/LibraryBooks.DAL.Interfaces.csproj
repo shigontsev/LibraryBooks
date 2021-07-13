@@ -45,6 +45,7 @@
     <Compile Include="IAuthorDAO.cs" />
     <Compile Include="IAuthorsAndBooksDAO.cs" />
     <Compile Include="IBookDAO.cs" />
+    <Compile Include="IUsersAndBooksDAO.cs" />
     <Compile Include="IUsersAndRolesDAO.cs" />
     <Compile Include="IUsersInfoDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

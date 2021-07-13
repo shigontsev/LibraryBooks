@@ -46,6 +46,7 @@
     <Compile Include="IAuthorsAndBooksLogic.cs" />
     <Compile Include="IBookLogic.cs" />
     <Compile Include="IUserInfoLogic.cs" />
+    <Compile Include="IUsersAndBooksLogic.cs" />
     <Compile Include="IUsersAndRolesLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

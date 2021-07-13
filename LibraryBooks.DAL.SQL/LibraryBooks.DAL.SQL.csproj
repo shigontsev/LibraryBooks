@@ -67,6 +67,7 @@
     <Compile Include="BookDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInfoDAO.cs" />
+    <Compile Include="UsersAndBooksDAO.cs" />
     <Compile Include="UsersAndRolesDAO.cs" />
   </ItemGroup>
   <ItemGroup>

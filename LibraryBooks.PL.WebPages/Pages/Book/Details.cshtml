@@ -6,7 +6,10 @@
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
     var bookBll = DependencyResolver.Instance.BookLogic;
+    var usersAndBooks = DependencyResolver.Instance.UsersAndBooksLogic;
+
     var book = bookBll.GetById(int.Parse(Request["id"]));
+    var users = usersAndBooks.GetUsersByBookId(book.Id).ToList();
 
     PageData["Title"] = "Book Deteils";
 }
@@ -38,35 +41,33 @@
         <h5>
             List Users
         </h5>
-
-        @*@if (User.IsInRole("admin"))
-        {
-            <a class="btn btn-primary" href="~/Pages/User/AssignAward?id=@(user.Id)">Add</a>
-        }
-        @if (awards.Count > 0)
+        <a class="btn btn-primary" href="~/Pages/Book/GiveToUser?id=@(book.Id)">GiveBookToUser</a>
+        @if (users.Count > 0)
         {
 
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Title</th>
+                        <th scope="col">ShortFullName</th>
+                        <th scope="col">PhoneNumber</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @{
                         int index = 0;
-                        foreach (var award in awards)
+                        foreach (var user in users)
                         {
                             index++;
                             <tr>
                                 <th scope="row">@index</th>
-                                <td>@award.Title</td>
+                                <td>@user.ShortFullName</td>
+                                <td>@user.Phone</td>
                                 <td>
                                     @if (User.IsInRole("admin"))
                                     {
-                                        <a class="btn btn-primary unAssign" href="~/Pages/User/UnAssignAward?idUser=@user.Id&idAward=@(award.Id)">Delete</a>
+                                        <a class="btn btn-primary returnBook" href="~/Pages/ReturnBookByUser?idBook=@(book.Id)&idUser=@(user.UserId)">ReturnBook</a>
                                     }
 
                                 </td>
@@ -81,19 +82,19 @@
             <p class="card-text">
                 List is Clear!!!
             </p>
-        }*@
+        }
     </div>
 </div>
 
 
-@*<script>
-        $('.unAssign').click(function (event) {
+<script>
+    $('.returnBook').click(function (event) {
 
-            let value = event.target.getAttribute('href');
+        let value = event.target.getAttribute('href');
 
-            let isDelete = confirm("Точно хотите удалить ?"));
+        let isDelete = confirm("Точно хотите вернуть книгу ?");
         if (isDelete) {
             location.href = value;
         }
-        });
-    </script>*@
+    });
+</script>

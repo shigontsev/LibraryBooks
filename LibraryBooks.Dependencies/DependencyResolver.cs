@@ -53,6 +53,10 @@ namespace LibraryBooks.Dependencies
         private IAuthorsAndBooksDAO AuthorsAndBooksDAO => new AuthorsAndBooksDAO();
 
         public IAuthorsAndBooksLogic AuthorsAndBooksLogic => new AuthorsAndBooksLogic(AuthorsAndBooksDAO);
+
+        private IUsersAndBooksDAO UsersAndBooksDAO => new UsersAndBooksDAO();
+
+        public IUsersAndBooksLogic UsersAndBooksLogic => new UsersAndBooksLogic(UsersAndBooksDAO);
         #endregion SqlBD
     }
 }

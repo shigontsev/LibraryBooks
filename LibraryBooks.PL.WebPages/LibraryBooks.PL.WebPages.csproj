@@ -147,6 +147,9 @@
     <Content Include="Pages\Book\Add.cshtml" />
     <Content Include="Pages\Book\Edit.cshtml" />
     <Content Include="Pages\Book\Delete.cshtml" />
+    <Content Include="Pages\User\GiveBook.cshtml" />
+    <Content Include="Pages\Book\GiveToUser.cshtml" />
+    <Content Include="Pages\ReturnBookByUser.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
