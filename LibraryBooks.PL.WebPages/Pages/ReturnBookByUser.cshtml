@@ -13,6 +13,10 @@
     var user = userBll.GetById(int.Parse(Request["idUser"]));
 
     PageData["Title"] = "Return Book by User";
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect("~/");
+    }
 }
 
 <h3>

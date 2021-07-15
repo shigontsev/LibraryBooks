@@ -20,7 +20,23 @@
 <h3>Выдать книгу пользователю : @user.ShortFullName</h3>
 <a href="~/Pages/User/Details?id=@user.UserId" class="btn btn-primary">Back</a>
 
-@if (!IsPost)
+@if (IsPost)
+{
+    try
+    {
+        var idBook = Request["gridRadios"];
+        usersAndBooksBll.GiveBookToUser(
+            bookId: int.Parse(idBook),
+            userId: user.UserId);
+        @RenderPage("~/Partial/_Succes.cshtml", new { succes = $"Пользователь \"{user.FullName}\" получил книгу!!!" })
+
+    }
+    catch (Exception ex)
+    {
+        @RenderPage("~/Partial/_Error.cshtml", new { error = $"Пользователь \"{user.FullName}\" не получил книгу!!!" })
+    }
+}
+else
 {
     if (books.Count > 0)
     {
@@ -51,21 +67,5 @@
         <h5>
             Все книги выданы!!!
         </h5>
-    }
-}
-else
-{
-    try
-    {
-        var idBook = Request["gridRadios"];
-        usersAndBooksBll.GiveBookToUser(
-            bookId: int.Parse(idBook),
-            userId: user.UserId);
-        @RenderPage("~/Partial/_Succes.cshtml", new { succes = $"Пользователь \"{user.FullName}\" получил книгу!!!" })
-
-    }
-    catch (Exception ex)
-    {
-        @RenderPage("~/Partial/_Error.cshtml", new { error = $"Пользователь \"{user.FullName}\" не получил книгу!!!" })
     }
 }

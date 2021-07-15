@@ -18,12 +18,15 @@
 </h3>
 
 
-<div class="card" style="width: 300px;">
+<div class="card" style="display:inline-block">
     <div class="card-body">
         <p class="card-text">
             FullName : @author.FullName
         </p>
-        <a class="btn btn-primary" href="~/Pages/Author/Edit?id=@(author.Id)">Edit</a>
+        @if (User.IsInRole("admin"))
+        {
+            <a class="btn btn-primary" href="~/Pages/Author/Edit?id=@(author.Id)">Edit</a>
+        }
         <h5>
             List Books
         </h5>
@@ -48,6 +51,7 @@
                                 <th scope="row">@index</th>
                                 <td>@book.Title</td>
                                 <td>
+                                    <a href="~/Pages/Book/Details?id=@(book.Id)" class="btn btn-primary">Details</a>
                                     @if (User.IsInRole("admin"))
                                     {
                                         <a class="btn btn-danger deleteBook" href="~/Pages/Book/Delete?id=@book.Id">Delete</a>

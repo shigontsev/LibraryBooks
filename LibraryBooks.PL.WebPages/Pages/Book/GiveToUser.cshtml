@@ -20,7 +20,24 @@
 <h3>Выдать читателю книгу : @book.Title автора: @book.AuthorFullName</h3>
 <a href="~/Pages/Book/Details?id=@book.Id" class="btn btn-primary">Back</a>
 
-@if (!IsPost)
+@if (IsPost)
+{
+    try
+    {
+        var idUser = Request["gridRadios"];
+        usersAndBooksBll.GiveBookToUser(
+            bookId: book.Id,
+            userId: int.Parse(idUser));
+        @RenderPage("~/Partial/_Succes.cshtml", new { succes = $"Книга \"{book.Title}\" от Автора \"{book.AuthorFullName}\" выдана читателю!!!" })
+
+    }
+    catch (Exception ex)
+    {
+        @RenderPage("~/Partial/_Error.cshtml", new { error = $"Книга \"{book.Title}\" от Автора \"{book.AuthorFullName}\" не выдана читателю!!!" })
+    }
+
+}
+else
 {
     if (users.Count > 0)
     {
@@ -51,21 +68,5 @@
         <h5>
             Данная книга имеется у всех читателей!!!
         </h5>
-    }
-}
-else
-{
-    try
-    {
-        var idUser = Request["gridRadios"];
-        usersAndBooksBll.GiveBookToUser(
-            bookId: book.Id,
-            userId: int.Parse(idUser));
-        @RenderPage("~/Partial/_Succes.cshtml", new { succes = $"Книга \"{book.Title}\" от Автора \"{book.AuthorFullName}\" выдана читателю!!!" })
-
-    }
-    catch (Exception ex)
-    {
-        @RenderPage("~/Partial/_Error.cshtml", new { error = $"Книга \"{book.Title}\" от Автора \"{book.AuthorFullName}\" не выдана читателю!!!" })
     }
 }

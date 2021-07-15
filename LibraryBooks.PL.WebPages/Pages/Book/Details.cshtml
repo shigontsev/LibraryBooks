@@ -20,13 +20,13 @@
 </h3>
 
 
-<div class="card" style="width: 300px;">
+<div class="card" style="display:inline-block">
     <div class="card-body">
         <p class="card-text">
             Title : @book.Title
         </p>
         <p class="card-text">
-            Author : @book.AuthorFullName
+            Author : <a href="~/Pages/Author/Details?id=@(book.AuthorId)" class="btn btn-link">@book.AuthorFullName</a>
         </p>
         <p class="card-text">
             Pages : @book.Page
@@ -34,14 +34,18 @@
         <p class="card-text">
             Description : @book.Description
         </p>
-        @if (!(User.IsInRole("admin")))
+        @if (User.IsInRole("admin"))
         {
             <a class="btn btn-primary" href="~/Pages/Book/Edit?id=@(book.Id)">Edit</a>
         }
         <h5>
             List Users
         </h5>
-        <a class="btn btn-primary" href="~/Pages/Book/GiveToUser?id=@(book.Id)">GiveBookToUser</a>
+        @if (User.IsInRole("admin"))
+        {
+            <a class="btn btn-primary" href="~/Pages/Book/GiveToUser?id=@(book.Id)">GiveBookToUser</a>
+        }
+
         @if (users.Count > 0)
         {
 
@@ -65,6 +69,7 @@
                                 <td>@user.ShortFullName</td>
                                 <td>@user.Phone</td>
                                 <td>
+                                    <a href="~/Pages/User/Details?id=@(user.UserId)" class="btn btn-primary">Details</a>
                                     @if (User.IsInRole("admin"))
                                     {
                                         <a class="btn btn-warning returnBook" href="~/Pages/ReturnBookByUser?idBook=@(book.Id)&idUser=@(user.UserId)">ReturnBook</a>
