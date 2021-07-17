@@ -32,10 +32,10 @@
     try
     {
         usersAndBooks.ReturnBookByUser(book.Id, user.UserId);
-        @RenderPage("~/Partial/_Succes.cshtml", new { succes = $"Успешный возврат!!!" });
+        @RenderPage("~/Partial/_Succes.cshtml", new { info = $"Успешный возврат!!!" });
     }
-    catch (Exception)
+    catch (Exception ex)
     {
-        @RenderPage("~/Partial/_Error.cshtml", new { error = $"Книга не возвращена" })
+        @RenderPage("~/Partial/_Error.cshtml", new { info = $"Книга не возвращена", exception = ex.Message })
     }
 }

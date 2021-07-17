@@ -75,11 +75,11 @@
 
         bookBll.Add(newBook);
 
-        @RenderPage("~/Partial/_Succes.cshtml", new { succes = $"Книга \"{newBook.Title}\" добавлена!!!" })
+        @RenderPage("~/Partial/_Succes.cshtml", new { info = $"Книга \"{newBook.Title}\" добавлена!!!" })
     }
     catch (Exception ex)
     {
-        @RenderPage("~/Partial/_Error.cshtml", new { error = "Книга не добавлена!!!" })
+        @RenderPage("~/Partial/_Error.cshtml", new { info = "Книга не добавлена!!!", exception = ex.Message })
     }
 }
 

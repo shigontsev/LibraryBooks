@@ -20,10 +20,10 @@
     {
         bookBll.Delete(book.Id);
 
-        @RenderPage("~/Partial/_Succes.cshtml", new { succes = $"Книга \"{book.Title}\" удалена!!!" })
+        @RenderPage("~/Partial/_Succes.cshtml", new { info = $"Книга \"{book.Title}\" удалена!!!" })
     }
     catch (Exception ex)
     {
-        @RenderPage("~/Partial/_Error.cshtml", new { error = $"Книга \"{book.Title}\" не удалена!!!" })
+        @RenderPage("~/Partial/_Error.cshtml", new { info = $"Книга \"{book.Title}\" не удалена!!!", exception = ex.Message })
     }
 }

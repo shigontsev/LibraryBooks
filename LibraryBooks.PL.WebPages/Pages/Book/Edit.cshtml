@@ -78,11 +78,11 @@
 
         bookBll.Edit(book);
 
-        @RenderPage("~/Partial/_Succes.cshtml", new { succes = $"Книга \"{book.Title}\" изменена!!!" })
+        @RenderPage("~/Partial/_Succes.cshtml", new { info = $"Книга \"{book.Title}\" изменена!!!" })
     }
     catch (Exception ex)
     {
-        @RenderPage("~/Partial/_Error.cshtml", new { error = "Книга не изменена!!!" })
+        @RenderPage("~/Partial/_Error.cshtml", new { info = "Книга не изменена!!!", exception = ex.Message })
     }
 }
 

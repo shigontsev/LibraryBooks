@@ -21,10 +21,10 @@
     {
         accountBll.Delete(user.UserId);
 
-        @RenderPage("~/Partial/_Succes.cshtml", new { succes = $"Пользователь \"{user.FullName}\" удален!!!" })
+        @RenderPage("~/Partial/_Succes.cshtml", new { info = $"Пользователь \"{user.FullName}\" удален!!!" })
     }
     catch (Exception ex)
     {
-        @RenderPage("~/Partial/_Error.cshtml", new { error = $"Пользователь \"{user.FullName}\" не удален!!!" })
+        @RenderPage("~/Partial/_Error.cshtml", new { info = $"Пользователь \"{user.FullName}\" не удален!!!", exception = ex.Message })
     }
 }

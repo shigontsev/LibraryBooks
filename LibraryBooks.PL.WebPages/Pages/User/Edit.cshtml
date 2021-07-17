@@ -74,11 +74,11 @@
         userBll.Edit(userInfo);
 
 
-        @RenderPage("~/Partial/_Succes.cshtml", new { succes = $"Пользователь \"{userInfo.ShortFullName}\" изменен!!!" })
+        @RenderPage("~/Partial/_Succes.cshtml", new { info = $"Пользователь \"{userInfo.ShortFullName}\" изменен!!!" })
     }
     catch (Exception ex)
     {
-        @RenderPage("~/Partial/_Error.cshtml", new { error = "Пользователь не изменен!!!" + ex.Message })
+        @RenderPage("~/Partial/_Error.cshtml", new { info = "Пользователь не изменен!!!" + ex.Message, exception = ex.Message })
     }
 }
 

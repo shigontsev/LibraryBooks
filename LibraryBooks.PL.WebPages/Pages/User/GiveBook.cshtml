@@ -28,12 +28,12 @@
         usersAndBooksBll.GiveBookToUser(
             bookId: int.Parse(idBook),
             userId: user.UserId);
-        @RenderPage("~/Partial/_Succes.cshtml", new { succes = $"Пользователь \"{user.FullName}\" получил книгу!!!" })
+        @RenderPage("~/Partial/_Succes.cshtml", new { info = $"Пользователь \"{user.FullName}\" получил книгу!!!" })
 
     }
     catch (Exception ex)
     {
-        @RenderPage("~/Partial/_Error.cshtml", new { error = $"Пользователь \"{user.FullName}\" не получил книгу!!!" })
+        @RenderPage("~/Partial/_Error.cshtml", new { info = $"Пользователь \"{user.FullName}\" не получил книгу!!!", exception = ex.Message })
     }
 }
 else

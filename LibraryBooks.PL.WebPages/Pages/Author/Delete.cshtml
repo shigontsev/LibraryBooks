@@ -20,10 +20,10 @@
     {
         authorBll.Delete(author.Id);
 
-        @RenderPage("~/Partial/_Succes.cshtml", new { succes = $"Автор \"{author.FullName}\" удален!!!" })
+        @RenderPage("~/Partial/_Succes.cshtml", new { info = $"Автор \"{author.FullName}\" удален!!!" })
     }
     catch (Exception ex)
     {
-        @RenderPage("~/Partial/_Error.cshtml", new { error = $"Автор \"{author.FullName}\" не удален!!!" })
+        @RenderPage("~/Partial/_Error.cshtml", new { info = $"Автор \"{author.FullName}\" не удален!!!", exception = ex.Message })
     }
 }

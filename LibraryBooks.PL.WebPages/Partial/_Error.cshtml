@@ -1,3 +1,12 @@
-﻿<div class="alert alert-danger" role="alert">
-    @PageData["error"]
+﻿@using LibraryBooks.PL.WebPages.Models;
+<div class="alert alert-danger" role="alert">
+    @PageData["info"]
 </div>
+@{ 
+    LoggerM.logger.Info(PageData["info"]);
+    var exep = PageData["exception"];
+    if (exep !=null)
+    {
+        LoggerM.logger.Error(exep);
+    }
+}
