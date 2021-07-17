@@ -25,5 +25,6 @@
     catch (Exception ex)
     {
         @RenderPage("~/Partial/_Error.cshtml", new { info = $"Автор \"{author.FullName}\" не удален!!!", exception = ex.Message })
+        Response.Redirect("~/Page/ErrorPage");
     }
 }

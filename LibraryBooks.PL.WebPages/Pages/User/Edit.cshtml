@@ -79,6 +79,7 @@
     catch (Exception ex)
     {
         @RenderPage("~/Partial/_Error.cshtml", new { info = "Пользователь не изменен!!!" + ex.Message, exception = ex.Message })
+        Response.Redirect("~/Page/ErrorPage");
     }
 }
 

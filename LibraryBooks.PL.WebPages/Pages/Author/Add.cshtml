@@ -45,6 +45,7 @@
     catch (Exception ex)
     {
         @RenderPage("~/Partial/_Error.cshtml", new { info = "Автор не добавлен!!!", exception = ex.Message })
+        Response.Redirect("~/Page/ErrorPage");
     }
 }
 

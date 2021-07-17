@@ -96,6 +96,7 @@
     catch (Exception ex)
     {
         @RenderPage("~/Partial/_Error.cshtml", new { info = "Пользователь не зарегистрирован!!!", exception = ex.Message })
+        Response.Redirect("~/Page/ErrorPage");
     }
 }
 

@@ -82,6 +82,7 @@
     catch (Exception ex)
     {
         @RenderPage("~/Partial/_Error.cshtml", new { info = "Книга не добавлена!!!", exception = ex.Message })
+        Response.Redirect("~/Page/ErrorPage");
     }
 }
 
