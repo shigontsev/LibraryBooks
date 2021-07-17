@@ -22,7 +22,7 @@
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">SurName</span>
         <input type="text" name="SurName" class="form-control" placeholder="SurName" aria-label="SurName" aria-describedby="basic-addon1"
-               value="@user.SurName" required>
+               value="@user.SurName" pattern="^[a-zA-Zа-яА-Я]+$" required>
         <div class="invalid-feedback">
             Please choose a SurName.
         </div>
@@ -30,7 +30,7 @@
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">FirstName</span>
         <input type="text" name="FirstName" class="form-control" placeholder="FirstName" aria-label="FirstName" aria-describedby="basic-addon1"
-               value="@user.FirstName" required>
+               value="@user.FirstName" pattern="^[a-zA-Zа-яА-Я]+$" required>
         <div class="invalid-feedback">
             Please choose a FirstName.
         </div>
@@ -38,7 +38,7 @@
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">SecondName</span>
         <input type="text" name="SecondName" class="form-control" placeholder="SecondName" aria-label="Username" aria-describedby="basic-addon1"
-               value="@user.SecondName" required>
+               value="@user.SecondName" pattern="^[a-zA-Zа-яА-Я]+$" required>
         <div class="invalid-feedback">
             Please choose a SecondName.
         </div>
@@ -51,7 +51,7 @@
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">PhoneNumber</span>
         <input type="tel" name="PhoneNumber" class="form-control" placeholder="+7-xxx-xxxx-xxxx" aria-label="PhoneNumber" aria-describedby="basic-addon1"
-               pattern="\+7-[0-9]{3}-[0-9]{3}-[0-9]{4}" value="@user.Phone" required>
+               pattern="^\+7-[0-9]{3}-[0-9]{3}-[0-9]{4}$" value="@user.Phone" required>
         <div class="invalid-feedback">
             Please choose valid format : +7-xxx-xxxx-xxxx.
         </div>

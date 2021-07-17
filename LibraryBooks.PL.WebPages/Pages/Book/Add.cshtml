@@ -19,14 +19,16 @@
 <form method="post" class="row g-3 needs-validation" style="margin: 20px; display: inline-block" novalidate>
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">Title</span>
-        <input type="text" name="Title" class="form-control" placeholder="Title" aria-label="Title" aria-describedby="basic-addon1" required>
+        <input type="text" name="Title" class="form-control" placeholder="Title" aria-label="Title" aria-describedby="basic-addon1"
+               pattern="^[A-Za-z0-9\s\-_,\.;:()]+$" required>
         <div class="invalid-feedback">
             Please choose a Title.
         </div>
     </div>
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">AuthorFullName</span>
-        <input type="text" list="datalistOptionsAuthors" name="AuthorFullName" class="form-control" placeholder="Surname F.S." aria-label="AuthorFullName" aria-describedby="basic-addon1" required>
+        <input type="text" list="datalistOptionsAuthors" name="AuthorFullName" class="form-control" placeholder="Surname F.S." aria-label="AuthorFullName" aria-describedby="basic-addon1" 
+               pattern="^[a-zA-Zа-яА-Я]+ [a-zA-Zа-яА-Я]\.[a-zA-Zа-яА-Я]\." required>
         <datalist id="datalistOptionsAuthors">
             @foreach (var item in authors)
             {
@@ -34,7 +36,7 @@
             }
         </datalist>
         <div class="invalid-feedback">
-            Please choose a AuthorFullName.
+            Please choose a AuthorFullName with format "Surname F.S.".
         </div>
     </div>
     <div class="input-group mb-3">
@@ -48,7 +50,7 @@
     <div class="input-group">
         <span class="input-group-text" id="basic-addon1">Description</span>
         <textarea  type="text" name="Description" class="form-control" placeholder="Description" aria-label="Description" aria-describedby="basic-addon1"
-                  style="width:400px" required></textarea>
+                  style="width:400px" maxlength="500" required></textarea>
         <div class="invalid-feedback">
             Please choose a Description.
         </div>
