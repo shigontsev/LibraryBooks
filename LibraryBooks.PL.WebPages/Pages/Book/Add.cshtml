@@ -15,8 +15,8 @@
         Response.Redirect("~/");
     }
 }
-<h3>Регистрация</h3>
-<form method="post" class="row g-3 needs-validation" style="margin: 20px; width:300px" novalidate>
+<h3>Добавить книгу</h3>
+<form method="post" class="row g-3 needs-validation" style="margin: 20px; display: inline-block" novalidate>
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">Title</span>
         <input type="text" name="Title" class="form-control" placeholder="Title" aria-label="Title" aria-describedby="basic-addon1" required>
@@ -45,9 +45,10 @@
             Please choose a Number Page.
         </div>
     </div>
-    <div class="input-group mb-3">
+    <div class="input-group">
         <span class="input-group-text" id="basic-addon1">Description</span>
-        <input type="text" name="Description" class="form-control" placeholder="Description" aria-label="Description" aria-describedby="basic-addon1" required>
+        <textarea  type="text" name="Description" class="form-control" placeholder="Description" aria-label="Description" aria-describedby="basic-addon1"
+                  style="width:400px" required></textarea>
         <div class="invalid-feedback">
             Please choose a Description.
         </div>

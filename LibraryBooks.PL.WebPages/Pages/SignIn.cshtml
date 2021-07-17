@@ -10,18 +10,26 @@
 }
 <h3>Авторизация</h3>
 
-<form method="post" style="margin: 20px; width:300px">
+<form method="post" class="needs-validation" style="margin: 20px; width:300px" novalidate>
     <div class="form-group">
         <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputLogin" name="login" required>
+            <input type="text" class="form-control" id="inputLogin" name="login"
+                   maxlength="32" pattern="[\w]{4,32}" required>
+            <div class="invalid-feedback">
+                Please choose a Login with length 4-32.
+            </div>
         </div>
     </div>
     <div class="form-group">
         <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
         <div class="col-sm-10">
-            <input type="password" class="form-control" id="inputPassword" name="pass" required>
-        </div>
+            <input type="password" class="form-control" id="inputPassword" name="pass"
+                   maxlength="32" pattern="[\w]{4,32}" required>
+            <div class="invalid-feedback">
+                Please choose a Password with length 4-32.
+            </div>
+        </div>        
     </div>
     <button type="submit" class="btn btn-primary">Sign in</button>
 </form>
@@ -38,6 +46,32 @@
     }
     else
     {
-        @RenderPage("~/Partial/_Error.cshtml", new { error = "Неудачная попытка авторизации"})
+        @RenderPage("~/Partial/_Error.cshtml", new { error = "Неудачная попытка авторизации: введен не верн логин или пароль"})
     }
 }
+
+<script>
+    $(function () {
+        $('input[type="text"]').change(function () {
+            this.value = $.trim(this.value);
+        });
+    });
+    $('.btn').click(function (event) {
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    });
+</script>

@@ -12,11 +12,19 @@
 <form method="post" class="row g-3 needs-validation" style="margin: 20px; width:300px" novalidate>
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">Login</span>
-        <input type="text" name="Login" class="form-control" placeholder="Login" aria-label="Login" aria-describedby="basic-addon1" required>
+        <input type="text" name="Login" class="form-control" placeholder="Login" aria-label="Login" aria-describedby="basic-addon1"
+              maxlength="32" pattern="[\w]{4,32}" required>
+        <div class="invalid-feedback">
+            Please choose a Login with length 4-32.
+        </div>
     </div>
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">Password</span>
-        <input type="password" name="Password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required>
+        <input type="password" name="Password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1"
+              maxlength="32" pattern="[\w]{4,32}" required>
+        <div class="invalid-feedback">
+            Please choose a Password with length 4-32.
+        </div>
     </div>
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">SurName</span>
