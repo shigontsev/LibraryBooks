@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryBooks.DAL.SQL
 {
@@ -36,7 +33,7 @@ namespace LibraryBooks.DAL.SQL
 
                 if (result == 0)
                     throw new InvalidOperationException(
-                        string.Format("Cannot add Author"));
+                        string.Format($"Cannot add Author with {nameof(fullName)} = \"{fullName}\""));
             }
         }
 
@@ -58,7 +55,7 @@ namespace LibraryBooks.DAL.SQL
 
                 if (result == 0)
                     throw new InvalidOperationException(
-                        string.Format("Cannot delete Author"));
+                        string.Format($"Cannot delete Author with {nameof(id)} = \"{id}\""));
             }
         }
 
@@ -81,7 +78,7 @@ namespace LibraryBooks.DAL.SQL
 
                 if (result == 0)
                     throw new InvalidOperationException(
-                        string.Format("Cannot edit Author"));
+                        string.Format($"Cannot edit Author with FullName = \'{author.FullName}\' by Id = \'{author.Id}\'"));
             }
         }
 

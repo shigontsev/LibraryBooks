@@ -2,12 +2,8 @@
 using LibraryBooks.Entities;
 using LibraryBooks.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryBooks.DAL.SQL
 {
@@ -43,13 +39,13 @@ namespace LibraryBooks.DAL.SQL
 
                 if (result == 0)
                     throw new InvalidOperationException(
-                        string.Format("Cannot create Account"));
+                        string.Format($"Cannot create Account with Login \'{login}\'"));
                 if (result == 1)
                     throw new InvalidOperationException(
-                        string.Format("Cannot create UserInfo about Account"));
+                        string.Format($"Cannot create UserInfo about Account with Login \'{login}\'"));
                 if (result == 2)
                     throw new InvalidOperationException(
-                        string.Format("Cannot assign Role for Account"));
+                        string.Format($"Cannot assign Role for Account with Login \'{login}\'"));
             }
         }
 
@@ -71,7 +67,7 @@ namespace LibraryBooks.DAL.SQL
 
                 if (result == 0)
                     throw new InvalidOperationException(
-                        string.Format("Cannot delete Account"));
+                        string.Format($"Cannot delete Account by Id \'{id}\'"));
             }
         }
 
@@ -106,11 +102,6 @@ namespace LibraryBooks.DAL.SQL
         public bool Exist(string login)
         {
             return GetAuthDataByLogin(login) != null;
-        }
-
-        public IEnumerable<AuthData> GetLogins()
-        {
-            throw new NotImplementedException();
         }
 
         public bool IsAuthentication(string login, string password)

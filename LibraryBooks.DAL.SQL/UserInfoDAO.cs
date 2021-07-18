@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryBooks.DAL.SQL
 {
@@ -37,7 +34,7 @@ namespace LibraryBooks.DAL.SQL
 
                 if (result == 0)
                     throw new InvalidOperationException(
-                        string.Format("Cannot edit UserInfo"));
+                        string.Format($"Cannot edit UserInfo by UserId = \'{user.UserId}\' "));
             }
         }
 

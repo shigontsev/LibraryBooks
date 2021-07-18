@@ -1,9 +1,4 @@
 ﻿using LibraryBooks.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryBooks.DAL.Interfaces
 {
@@ -15,8 +10,6 @@ namespace LibraryBooks.DAL.Interfaces
         void Delete(int id);
 
         bool IsAuthentication(string login, string password);
-
-        IEnumerable<AuthData> GetLogins();
 
         AuthData GetAuthDataByLogin(string login);
 

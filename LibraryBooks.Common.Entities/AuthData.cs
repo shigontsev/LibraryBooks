@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryBooks.Entities
 {
@@ -11,8 +7,8 @@ namespace LibraryBooks.Entities
         public AuthData(int id, string login, string hashPassword)
         {
             Id = id;
-            Login = login ?? throw new ArgumentNullException(nameof(login));
-            HashPassword = hashPassword ?? throw new ArgumentNullException(nameof(hashPassword));
+            Login = login ?? throw new ArgumentNullException(nameof(login), string.Format($"{nameof(login)} cannot be is null"));
+            HashPassword = hashPassword ?? throw new ArgumentNullException(nameof(hashPassword), string.Format($"{nameof(hashPassword)} cannot be is null"));
         }
 
         public int Id { get; private set; }

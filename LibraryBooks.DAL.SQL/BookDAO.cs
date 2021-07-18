@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryBooks.DAL.SQL
 {
@@ -35,7 +32,7 @@ namespace LibraryBooks.DAL.SQL
 
                 if (result == 0)
                     throw new InvalidOperationException(
-                        string.Format("Cannot add Book"));
+                        string.Format($"Cannot add Book by Title = \'{newBook.Title}\'"));
             }
         }
 
@@ -57,7 +54,7 @@ namespace LibraryBooks.DAL.SQL
 
                 if (result == 0)
                     throw new InvalidOperationException(
-                        string.Format("Cannot delete Book"));
+                        string.Format($"Cannot delete Book by Id = \'{id}\'"));
             }
         }
 
@@ -83,7 +80,7 @@ namespace LibraryBooks.DAL.SQL
 
                 if (result == 0)
                     throw new InvalidOperationException(
-                        string.Format("Cannot edit Book"));
+                        string.Format($"Cannot edit Book by Id = \'{book.Id}\' and by Title = \'{book.Title}\'"));
             }
         }
 
