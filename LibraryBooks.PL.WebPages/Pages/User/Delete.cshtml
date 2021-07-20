@@ -1,0 +1,31 @@
+﻿@using LibraryBooks.Dependencies
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var accountBll = DependencyResolver.Instance.AccountLogic;
+    var usersInfoBll = DependencyResolver.Instance.UserInfoLogic;
+
+    PageData["Title"] = "Delete User";
+
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect("~/");
+    }
+    var user = usersInfoBll.GetById(int.Parse(Request["id"]));
+}
+<h3>Delete User : @user.FullName</h3>
+
+@{
+    try
+    {
+        accountBll.Delete(user.UserId);
+
+        @RenderPage("~/Partial/_Succes.cshtml", new { info = $"Пользователь \"{user.FullName}\" удален!!!" })
+    }
+    catch (Exception ex)
+    {
+        @RenderPage("~/Partial/_Error.cshtml", new { info = $"Пользователь \"{user.FullName}\" не удален!!!", exception = ex.Message })
+        Response.Redirect("~/Page/ErrorPage");
+    }
+}

@@ -1,0 +1,71 @@
+﻿@using LibraryBooks.Dependencies
+@using LibraryBooks.Entities
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var usersAndBooksBll = DependencyResolver.Instance.UsersAndBooksLogic;
+    var usersBll = DependencyResolver.Instance.UserInfoLogic;
+
+    var user = usersBll.GetById(int.Parse(Request["id"]));
+    var books = usersAndBooksBll.GetBooksUnAvailableByUserId(user.UserId).ToList();
+
+    PageData["Title"] = "GiveBookToUser";
+
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect("~/");
+    }
+}
+<h3>Выдать книгу пользователю : @user.ShortFullName</h3>
+<a href="~/Pages/User/Details?id=@user.UserId" class="btn btn-primary">Back</a>
+
+@if (IsPost)
+{
+    try
+    {
+        var idBook = Request["gridRadios"];
+        usersAndBooksBll.GiveBookToUser(
+            bookId: int.Parse(idBook),
+            userId: user.UserId);
+        @RenderPage("~/Partial/_Succes.cshtml", new { info = $"Пользователь \"{user.FullName}\" получил книгу!!!" })
+
+    }
+    catch (Exception ex)
+    {
+        @RenderPage("~/Partial/_Error.cshtml", new { info = $"Пользователь \"{user.FullName}\" не получил книгу!!!", exception = ex.Message })
+    }
+}
+else
+{
+    if (books.Count > 0)
+    {
+        <form method="post">
+            <fieldset class="row mb-3">
+                <legend class="col-form-label col-sm-2 pt-0">Awards</legend>
+                <div class="col-sm-10">
+                    @{
+                        int index = 0;
+                        foreach (var item in books)
+                        {
+                            index++;
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios@index" value="@item.Id" checked>
+                                <label class="form-check-label" for="gridRadios@index">
+                                    @string.Format($"Tilte : {item.Title}; Author : {item.AuthorFullName}")
+                                </label>
+                            </div>
+                        }
+                    }
+                </div>
+            </fieldset>
+            <button type="submit" class="btn btn-primary">Turn</button>
+        </form>
+    }
+    else
+    {
+        <h5>
+            Все книги выданы!!!
+        </h5>
+    }
+}

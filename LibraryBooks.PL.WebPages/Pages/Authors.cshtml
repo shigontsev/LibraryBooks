@@ -1,0 +1,64 @@
+﻿@using LibraryBooks.Dependencies
+@using LibraryBooks.Entities;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var authorsAndBooksBLL = DependencyResolver.Instance.AuthorsAndBooksLogic;
+    var authorBll = DependencyResolver.Instance.AuthorLogic;
+    var authors = authorBll.GetAll();
+
+    PageData["Title"] = "Authors";
+
+}
+<h3>
+    Список Авторов
+</h3>
+
+@if (User.IsInRole("admin"))
+{
+<a class="btn btn-primary" href="~/Pages/Author/Add.cshtml">Add</a>
+}
+
+@{
+    <table class="table table-striped" style="display:inline-block">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">FullName</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int index = 0;
+                foreach (var author in authors)
+                {
+                    index++;
+                    <tr>
+                        <th scope="row">@index</th>
+                        <td>@author.FullName</td>
+                        <td>
+                            <a href="~/Pages/Author/Details?id=@(author.Id)" class="btn btn-primary">Details</a>
+                            @if (User.IsInRole("admin") && !authorsAndBooksBLL.ExistBooks(author.Id))
+                            {
+                                <a href="~/Pages/Author/Delete?id=@(author.Id)" class="btn btn-danger deleteAuthor">Delete</a>
+                            }
+                        </td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+<script>
+    $('.deleteAuthor').click(function (event) {
+        let value = event.target.getAttribute('href');
+        let isDelete = confirm("Точно хотите удалить ?");
+        if (isDelete) {
+            location.href = value;
+        }
+    });
+</script>

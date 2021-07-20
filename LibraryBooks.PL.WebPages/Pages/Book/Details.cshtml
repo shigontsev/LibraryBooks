@@ -1,0 +1,105 @@
+﻿@using LibraryBooks.Dependencies
+@using LibraryBooks.Entities;
+@using LibraryBooks.PL.WebPages.Models;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var bookBll = DependencyResolver.Instance.BookLogic;
+    var usersAndBooks = DependencyResolver.Instance.UsersAndBooksLogic;
+
+    var book = bookBll.GetById(int.Parse(Request["id"]));
+    var users = usersAndBooks.GetUsersByBookId(book.Id).ToList();
+
+    PageData["Title"] = "Book Deteils";
+}
+
+
+<h3>
+    Книга : @book.Title
+</h3>
+
+
+<div class="card" style="display:inline-block">
+    <div class="card-body">
+        <p class="card-text">
+            Title : @book.Title
+        </p>
+        <p class="card-text">
+            Author : <a href="~/Pages/Author/Details?id=@(book.AuthorId)" class="btn btn-link">@book.AuthorFullName</a>
+        </p>
+        <p class="card-text">
+            Pages : @book.Page
+        </p>
+        <p class="card-text" style="max-width:400px">
+            Description : @book.Description
+        </p>
+        @if (User.IsInRole("admin"))
+        {
+            <a class="btn btn-primary" href="~/Pages/Book/Edit?id=@(book.Id)">Edit</a>
+        }
+        <h5>
+            List Users
+        </h5>
+        @if (User.IsInRole("admin"))
+        {
+            <a class="btn btn-primary" href="~/Pages/Book/GiveToUser?id=@(book.Id)">GiveBookToUser</a>
+        }
+
+        @if (users.Count > 0)
+        {
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">ShortFullName</th>
+                        <th scope="col">PhoneNumber</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int index = 0;
+                        foreach (var user in users)
+                        {
+                            index++;
+                            <tr>
+                                <th scope="row">@index</th>
+                                <td>@user.ShortFullName</td>
+                                <td>@user.Phone</td>
+                                <td>
+                                    <a href="~/Pages/User/Details?id=@(user.UserId)" class="btn btn-primary">Details</a>
+                                    @if (User.IsInRole("admin"))
+                                    {
+                                        <a class="btn btn-warning returnBook" href="~/Pages/ReturnBookByUser?idBook=@(book.Id)&idUser=@(user.UserId)">ReturnBook</a>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="card-text">
+                List is Clear!!!
+            </p>
+        }
+    </div>
+</div>
+
+
+<script>
+    $('.returnBook').click(function (event) {
+
+        let value = event.target.getAttribute('href');
+
+        let isDelete = confirm("Точно хотите вернуть книгу ?");
+        if (isDelete) {
+            location.href = value;
+        }
+    });
+</script>

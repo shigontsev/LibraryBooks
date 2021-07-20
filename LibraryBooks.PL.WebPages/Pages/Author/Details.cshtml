@@ -1,0 +1,85 @@
+﻿@using LibraryBooks.Dependencies
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var authorBll = DependencyResolver.Instance.AuthorLogic;
+    var authorsAndBooksBll = DependencyResolver.Instance.AuthorsAndBooksLogic;
+
+    var author = authorBll.GetById(int.Parse(Request["id"]));
+    var books = authorsAndBooksBll.GetBooksByAuthorId(author.Id).ToList();
+
+    PageData["Title"] = "Author Details";
+}
+
+
+<h3>
+    Автор : @author.FullName
+</h3>
+
+
+<div class="card" style="display:inline-block">
+    <div class="card-body">
+        <p class="card-text">
+            FullName : @author.FullName
+        </p>
+        @if (User.IsInRole("admin"))
+        {
+            <a class="btn btn-primary" href="~/Pages/Author/Edit?id=@(author.Id)">Edit</a>
+        }
+        <h5>
+            List Books
+        </h5>
+        @if (books.Count > 0)
+        {
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int index = 0;
+                        foreach (var book in books)
+                        {
+                            index++;
+                            <tr>
+                                <th scope="row">@index</th>
+                                <td>@book.Title</td>
+                                <td>
+                                    <a href="~/Pages/Book/Details?id=@(book.Id)" class="btn btn-primary">Details</a>
+                                    @if (User.IsInRole("admin"))
+                                    {
+                                        <a class="btn btn-danger deleteBook" href="~/Pages/Book/Delete?id=@book.Id">Delete</a>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="card-text">
+                List is Clear!!!
+            </p>
+        }
+    </div>
+</div>
+
+
+<script>
+    $('.deleteBook').click(function (event) {
+        let value = event.target.getAttribute('href');
+        let isDelete = confirm("Точно хотите удалить ?");
+        if (isDelete) {
+            location.href = value;
+        }
+    });
+</script>

@@ -1,0 +1,41 @@
+﻿@using LibraryBooks.Dependencies
+@using LibraryBooks.Entities;
+@using LibraryBooks.PL.WebPages.Models;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var bookBll = DependencyResolver.Instance.BookLogic;
+    var userBll = DependencyResolver.Instance.UserInfoLogic;
+    var usersAndBooks = DependencyResolver.Instance.UsersAndBooksLogic;
+
+    var book = bookBll.GetById(int.Parse(Request["idBook"]));
+    var user = userBll.GetById(int.Parse(Request["idUser"]));
+
+    PageData["Title"] = "Return Book by User";
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect("~/");
+    }
+}
+
+<h3>
+    Читатель FullName : @user.FullName , Phone : @user.Phone
+</h3>
+<h3>
+    --->
+</h3>
+<h3>
+    Книга Title : @book.Title , Author : @book.AuthorFullName
+</h3>
+@{
+    try
+    {
+        usersAndBooks.ReturnBookByUser(book.Id, user.UserId);
+        @RenderPage("~/Partial/_Succes.cshtml", new { info = $"Успешный возврат!!!" });
+    }
+    catch (Exception ex)
+    {
+        @RenderPage("~/Partial/_Error.cshtml", new { info = $"Книга не возвращена", exception = ex.Message })
+    }
+}

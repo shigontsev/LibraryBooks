@@ -1,0 +1,30 @@
+﻿@using LibraryBooks.Dependencies
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var bookBll = DependencyResolver.Instance.BookLogic;
+
+    PageData["Title"] = "Delete Book";
+
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect("~/");
+    }
+    var book = bookBll.GetById(int.Parse(Request["id"]));
+}
+<h3>Delete Book : @book.Title</h3>
+
+@{
+    try
+    {
+        bookBll.Delete(book.Id);
+
+        @RenderPage("~/Partial/_Succes.cshtml", new { info = $"Книга \"{book.Title}\" удалена!!!" })
+    }
+    catch (Exception ex)
+    {
+        @RenderPage("~/Partial/_Error.cshtml", new { info = $"Книга \"{book.Title}\" не удалена!!!", exception = ex.Message })
+        Response.Redirect("~/Page/ErrorPage");
+    }
+}

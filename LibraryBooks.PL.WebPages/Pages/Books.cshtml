@@ -1,0 +1,67 @@
+﻿@using LibraryBooks.Dependencies
+@using LibraryBooks.Entities;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var usersAndBooks = DependencyResolver.Instance.UsersAndBooksLogic;
+    var bookBll = DependencyResolver.Instance.BookLogic;
+    var books = bookBll.GetAll();
+
+    PageData["Title"] = "Books";
+
+}
+<h3>
+    Список книг
+</h3>
+
+@if (User.IsInRole("admin"))
+{
+    <a class="btn btn-primary" href="~/Pages/Book/Add.cshtml">Add</a>
+}
+
+@{
+    <table class="table table-striped" style="display:inline-block">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">AuthorFullName</th>
+                <th scope="col">Page</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int index = 0;
+                foreach (var book in books)
+                {
+                    index++;
+                    <tr>
+                        <th scope="row">@index</th>
+                        <td>@book.Title</td>
+                        <td>@book.AuthorFullName</td>
+                        <td>@book.Page</td>
+                        <td>
+                            <a href="~/Pages/Book/Details?id=@(book.Id)" class="btn btn-primary">Details</a>
+                            @if (User.IsInRole("admin") && !usersAndBooks.ExistByBookId(book.Id))
+                            {
+                                <a href="~/Pages/Book/Delete?id=@(book.Id)" class="btn btn-danger deleteBook">Delete</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+<script>
+    $('.deleteBook').click(function (event) {
+        let value = event.target.getAttribute('href');
+        let isDelete = confirm("Точно хотите удалить ?");
+        if (isDelete) {
+            location.href = value;
+        }
+    });
+</script>

@@ -1,0 +1,37 @@
+﻿@using LibraryBooks.Dependencies;
+@{
+    var accountBll = DependencyResolver.Instance.AccountLogic;
+    var userBll = DependencyResolver.Instance.UserInfoLogic;
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    var userId = accountBll.GetAuthDataByLogin(User.Identity.Name).Id;
+    if (User.IsInRole("admin"))
+    {
+        <h3>Admin</h3>
+    }
+    else
+    {
+        <h3>@userBll.GetById(userId).FullName</h3>
+    }
+    <div class="list-group list-group-horizontal" style="">
+        @if (User.IsInRole("admin"))
+        {
+            <a href="~/Pages/Users.cshtml" class="btn btn-primary list-group-item-primary">Users</a>
+        }
+        else
+        {
+            <a href="~/Pages/User/Details?id=@userId" class="btn btn-primary list-group-item-primary">Читательский</a>
+        }
+        <a href="~/Pages/Books.cshtml" class="btn btn-primary list-group-item-secondary">Books</a>
+        <a href="~/Pages/Authors.cshtml" class="btn btn-primary list-group-item-primary">Authors</a>
+        <a href="~/Pages/SignOut.cshtml" class="btn btn-primary list-group-item-secondary">SignOut</a>
+    </div>
+}
+else
+{
+    <a href="~/Pages/SignIn.cshtml" class="btn btn-primary list-group-item-primary">SignIn</a>
+    <a href="~/Pages/SignUp.cshtml" class="btn btn-primary list-group-item-secondary">SignUp</a>
+}
+
